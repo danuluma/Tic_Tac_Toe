@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int TURN_COUNT = 0;
     TextView tv1;
     private boolean PLAYER_X = true;
-    boolean COMP= true;
+    boolean COMP = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button8 = (Button) findViewById(R.id.button8);
         button9 = (Button) findViewById(R.id.button9);
         tv1 = (TextView) findViewById(R.id.tv1);
-
 
 
         button1.setOnClickListener(this);
@@ -168,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         PLAYER_X = !PLAYER_X;
 
 
-        if (!COMP){
+        if (!COMP) {
 
 
             if (PLAYER_X) {
@@ -178,10 +177,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tv1.setText("Player 1 turn");
             }
 
-        }else {
+        } else {
             tv1.setText("Your turn");
         }
-
 
 
         if (TURN_COUNT == 9) {
@@ -208,7 +206,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
 
-
         }
 
         for (int i = 0; i < 3; i++) {
@@ -225,24 +222,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
 
-
         }
-        if (boardStatus[1][1]==boardStatus[0][0]
-                &&boardStatus[0][0]==boardStatus[2][2]) {
+        if (boardStatus[1][1] == boardStatus[0][0]
+                && boardStatus[0][0] == boardStatus[2][2]) {
             if (boardStatus[0][0] == 1) {
                 Toast.makeText(this, "Player X wins First Diagonal", Toast.LENGTH_SHORT).show();
-            }else if
-                    (boardStatus[0][0]==0){
+            } else if
+                    (boardStatus[0][0] == 0) {
                 Toast.makeText(this, "Player 0 wins First Diagonal", Toast.LENGTH_SHORT).show();
             }
         }
 
-        if (boardStatus[0][2]==boardStatus[1][1]
-                &&boardStatus[0][2]==boardStatus[2][0]) {
+        if (boardStatus[0][2] == boardStatus[1][1]
+                && boardStatus[0][2] == boardStatus[2][0]) {
             if (boardStatus[0][2] == 1) {
                 Toast.makeText(this, "Player X wins Second Diagonal", Toast.LENGTH_SHORT).show();
-            }else if
-                    (boardStatus[0][0]==0){
+            } else if
+                    (boardStatus[0][0] == 0) {
                 Toast.makeText(this, "Player 0 wins Second Diagonal", Toast.LENGTH_SHORT).show();
             }
         }
@@ -257,78 +253,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
-
-
-//
-//    private class AI {
-//        public void takeTurn() {
-//            if (boardStatus[1][1] == 2 &&
-//                    ((c[1][2] == 0 && c[1][3] == 0) ||
-//                            (c[2][2] == 0 && c[3][3] == 0) ||
-//                            (c[2][1] == 0 && c[3][1] == 0))) {
-//                markSquare(1, 1);
-//            } else if (c[1][2] == 2 &&
-//                    ((c[2][2] == 0 && c[3][2] == 0) ||
-//                            (c[1][1] == 0 && c[1][3] == 0))) {
-//                markSquare(1, 2);
-//            } else if (c[1][3] == 2 &&
-//                    ((c[1][1] == 0 && c[1][2] == 0) ||
-//                            (c[3][1] == 0 && c[2][2] == 0) ||
-//                            (c[2][3] == 0 && c[3][3] == 0))) {
-//                markSquare(1, 3);
-//            } else if (c[2][1] == 2 &&
-//                    ((c[2][2] == 0 && c[2][3] == 0) ||
-//                            (c[1][1] == 0 && c[3][1] == 0))) {
-//                markSquare(2, 1);
-//            } else if (c[2][2] == 2 &&
-//                    ((c[1][1] == 0 && c[3][3] == 0) ||
-//                            (c[1][2] == 0 && c[3][2] == 0) ||
-//                            (c[3][1] == 0 && c[1][3] == 0) ||
-//                            (c[2][1] == 0 && c[2][3] == 0))) {
-//                markSquare(2, 2);
-//            } else if (c[2][3] == 2 &&
-//                    ((c[2][1] == 0 && c[2][2] == 0) ||
-//                            (c[1][3] == 0 && c[3][3] == 0))) {
-//                markSquare(2, 3);
-//            } else if (c[3][1] == 2 &&
-//                    ((c[1][1] == 0 && c[2][1] == 0) ||
-//                            (c[3][2] == 0 && c[3][3] == 0) ||
-//                            (c[2][2] == 0 && c[1][3] == 0))) {
-//                markSquare(3, 1);
-//            } else if (c[3][2] == 2 &&
-//                    ((c[1][2] == 0 && c[2][2] == 0) ||
-//                            (c[3][1] == 0 && c[3][3] == 0))) {
-//                markSquare(3, 2);
-//            } else if (c[3][3] == 2 &&
-//                    ((c[1][1] == 0 && c[2][2] == 0) ||
-//                            (c[1][3] == 0 && c[2][3] == 0) ||
-//                            (c[3][1] == 0 && c[3][2] == 0))) {
-//                markSquare(3, 3);
-//            } else {
-//                Random rand = new Random();
-//
-//                int a = rand.nextInt(4);
-//                int b = rand.nextInt(4);
-//                while (a == 0 || b == 0 || c[a][b] != 2) {
-//                    a = rand.nextInt(4);
-//                    b = rand.nextInt(4);
-//                }
-//                markSquare(a, b);
-//            }
-//        }
-//
-
-//        private void markSquare(int x, int y) {
-//            b[x][y].setEnabled(false);
-//            b[x][y].setText("X");
-//            c[x][y] = 1;
-//            checkBoard();
-//        }
-//    }
-
-//    @Override
-//    public void onPointerCaptureChanged(boolean hasCapture) {
-//
-//    }
 }
