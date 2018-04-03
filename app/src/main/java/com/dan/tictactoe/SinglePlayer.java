@@ -56,8 +56,9 @@ public class SinglePlayer extends AppCompatActivity {
             int j;
             for (j = 0; j < 3; j++) {
                 boardStatus[i][j] = -1;
+                comp = new AI();
             }
-            comp = new AI();
+//            comp = new AI();
 
 
         }
@@ -136,6 +137,7 @@ public class SinglePlayer extends AppCompatActivity {
             if (!empty){
                 winnerFound=true;
                 Toast.makeText(this, "Hey no winner", Toast.LENGTH_SHORT).show();
+
             }
         }
 
