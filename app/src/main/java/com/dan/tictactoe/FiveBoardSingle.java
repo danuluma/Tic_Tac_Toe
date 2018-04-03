@@ -6,17 +6,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class FiveBoardMulti extends AppCompatActivity {
+import java.util.Random;
 
+public class FiveBoardSingle extends AppCompatActivity {
     Button button[][] = new Button[5][5];
     int boardStatus[][] = new int[5][5];
-    public boolean SWITCH = true;
+    AI2 comp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_five);
-
 
         button[0][0] = (Button) findViewById(R.id.button1);
         button[0][1] = (Button) findViewById(R.id.button2);
@@ -62,27 +62,22 @@ public class FiveBoardMulti extends AppCompatActivity {
         Toast.makeText(this, "Board initialized", Toast.LENGTH_SHORT).show();
 
 
-
-
-
-
     }
 
     private void initializeBoardStatus() {
         for (int i = 0; i < 5; i++) {
-        int j;
-        for (j = 0; j < 5; j++) {
-            boardStatus[i][j] = -1;
-//                comp = new AI();
-        }
+            int j;
+            for (j = 0; j < 5; j++) {
+                boardStatus[i][j] = -1;
+               comp = new AI2();
+            }
 //            comp = new AI();
 
 
-    }
+        }
     }
 
     private class FiveClickListener implements View.OnClickListener {
-
         int x;
         int y;
 
@@ -93,37 +88,46 @@ public class FiveBoardMulti extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            if (button[x][y].isEnabled()) {
+                button[x][y].setText("0");
+                button[x][y].setEnabled(false);
+                boardStatus[x][y] = 0;
+               checkWinner();
+              if (!checkWinner()) {
 
-
-            if (SWITCH == true) {
-
-
-                if (button[x][y].isEnabled()) {
-                    button[x][y].setText("0");
-                    button[x][y].setEnabled(false);
-                    boardStatus[x][y] = 0;
-                    SWITCH = false;
-                }
-
+              comp.compTurn();
+              }
             }
-
-            else if (SWITCH == false){
-
-                if (button[x][y].isEnabled()) {
-                    button[x][y].setText("X");
-                    button[x][y].setEnabled(false);
-                    boardStatus[x][y] = 1;
-                    SWITCH = true;
-
-                }
-            }
-
-            checkWinner();
 
         }
     }
 
-    private void checkWinner() {
+    private class AI2 {
+        public void compTurn() {
+            {
+                Random rand = new Random();
+
+                int a = rand.nextInt(5);
+                int b = rand.nextInt(5);
+                while (a == -1 || b == -1 || boardStatus[a][b] != -1) {
+                    a = rand.nextInt(5);
+                    b = rand.nextInt(5);
+                }
+                markSquare(a, b);
+            }
+        }
+
+        private void markSquare(int x, int y) {
+            button[x][y].setEnabled(false);
+            button[x][y].setText("X");
+            boardStatus[x][y] = 1;
+
+            checkWinner();
+           return;
+        }
+    }
+    private boolean checkWinner() {
+        boolean winnerFound = false;
         for (int i = 0; i < 5; i++) {
             if (boardStatus[0][i] == boardStatus[1][i]
                     && boardStatus[0][i] == boardStatus[2][i]
@@ -182,6 +186,24 @@ public class FiveBoardMulti extends AppCompatActivity {
                 Toast.makeText(this, "Player 0 wins Second Diagonal", Toast.LENGTH_SHORT).show();
             }
         }
+        {
+            boolean empty = false;
+            for (int i = 1; i < 5; i++) {
+                for (int j = 1; j < 5; j++) {
+                    if (boardStatus[i][j] == -1) {
+                        empty = true;
+                        break;
+                    }
+                }
+            }
+            if (!empty) {
+                winnerFound = true;
+
+                Toast.makeText(this, "Game over. It's a draw!", Toast.LENGTH_SHORT).show();
+            }
+        }
+        return winnerFound;
 
     }
+
 }

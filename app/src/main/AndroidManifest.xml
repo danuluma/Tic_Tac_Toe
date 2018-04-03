@@ -26,7 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FiveBoardMulti"></activity>
+        <activity android:name=".FiveBoardMulti" />
+        <activity android:name=".Construction" />
+        <activity android:name=".FiveBoardSingle"></activity>
     </application>
 
 </manifest>

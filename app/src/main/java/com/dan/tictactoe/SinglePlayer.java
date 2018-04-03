@@ -140,6 +140,22 @@ public class SinglePlayer extends AppCompatActivity {
 
             }
         }
+        {
+            boolean empty = false;
+            for (int i = 1; i < 3; i++) {
+                for (int j = 1; j < 3; j++) {
+                    if (boardStatus[i][j] == -1) {
+                        empty = true;
+                        break;
+                    }
+                }
+            }
+            if (!empty) {
+                winnerFound = true;
+
+                Toast.makeText(this, "Game over. It's a draw!", Toast.LENGTH_SHORT).show();
+            }
+        }
 
         return winnerFound;
     }
@@ -233,7 +249,10 @@ public class SinglePlayer extends AppCompatActivity {
                 button[x][y].setText("0");
                 button[x][y].setEnabled(false);
                 boardStatus[x][y] = 0;
-                comp.compTurn();
+//                checkWinner();
+                if (!checkWinner()) {
+                    comp.compTurn();
+                }
 
             }
 

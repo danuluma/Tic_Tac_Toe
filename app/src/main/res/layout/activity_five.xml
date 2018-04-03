@@ -6,8 +6,9 @@
     tools:context=".MainActivity">
 
     <TableLayout
+        android:id="@+id/tl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:rowCount="5"
         android:columnCount="5">
 
@@ -255,9 +256,9 @@
         android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginBottom="165dp"
         android:text="TextView" />
 
 

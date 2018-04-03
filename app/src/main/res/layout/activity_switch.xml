@@ -20,4 +20,16 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Multi" />
+    <Button
+        android:id="@+id/btmf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="MultiFive" />
+    <Button
+        android:id="@+id/btsf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="SingleFive" />
 </LinearLayout>

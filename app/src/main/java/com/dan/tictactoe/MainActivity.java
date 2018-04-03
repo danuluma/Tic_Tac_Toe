@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void checkWinner() {
+//        boolean winnerFound = false;
         for (int i = 0; i < 3; i++) {
             if (boardStatus[0][i] == boardStatus[1][i]
                     && boardStatus[0][i] == boardStatus[2][i]) {
@@ -109,6 +110,23 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Player 0 wins Second Diagonal", Toast.LENGTH_SHORT).show();
             }
         }
+//        {
+//            boolean empty = false;
+//            for (int i = 1; i < 5; i++) {
+//                for (int j = 1; j < 5; j++) {
+//                    if (boardStatus[i][j] == -1) {
+//                        empty = true;
+//                        break;
+//                    }
+//                }
+//            }
+//            if (!empty) {
+//                winnerFound = true;
+//
+//                Toast.makeText(this, "Game over. It's a draw!", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//        return winnerFound;
     }
 
     private void initializeBoardStatus() {
