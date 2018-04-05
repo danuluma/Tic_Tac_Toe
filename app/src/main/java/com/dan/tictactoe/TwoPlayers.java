@@ -7,10 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Random;
 
-
-public class MainActivity extends AppCompatActivity {
+public class TwoPlayers extends AppCompatActivity {
 
     Button button1, button2, button3, button4, button5, button6, button7, button8, button9;
     int[][] boardStatus = new int[3][3];
@@ -21,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_two_players);
 
 
 

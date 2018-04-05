@@ -32,7 +32,7 @@ public class Switch extends AppCompatActivity {
         btm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Switch.this, com.dan.tictactoe.MainActivity.class);
+                Intent intent = new Intent(Switch.this, TwoPlayers.class);
                 startActivity(intent);
 
             }

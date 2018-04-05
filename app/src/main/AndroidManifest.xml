@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".TwoPlayers">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -20,15 +20,22 @@
         </activity>
         <activity android:name=".SinglePlayer" />
         <activity android:name=".Switch">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".FiveBoardMulti" />
+        <activity android:name=".Construction" />
+        <activity android:name=".FiveBoardSingle" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FiveBoardMulti" />
-        <activity android:name=".Construction" />
-        <activity android:name=".FiveBoardSingle"></activity>
     </application>
 
 </manifest>
