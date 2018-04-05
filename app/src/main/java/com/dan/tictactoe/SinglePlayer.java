@@ -40,6 +40,8 @@ public class SinglePlayer extends AppCompatActivity {
                 if (!button[i][j].isEnabled()) {
                     button[i][j].setText(" ");
                     button[i][j].setEnabled(true);
+                }else {
+                    button[i][j].setText(" ");
                 }
             }
         }
@@ -83,6 +85,7 @@ public class SinglePlayer extends AppCompatActivity {
                     break;
                 }
 
+
             }
 
 
@@ -102,6 +105,7 @@ public class SinglePlayer extends AppCompatActivity {
             }
 
 
+
         }
         if (boardStatus[1][1] == boardStatus[0][0]
                 && boardStatus[0][0] == boardStatus[2][2]) {
@@ -112,6 +116,7 @@ public class SinglePlayer extends AppCompatActivity {
                     (boardStatus[0][0] == 0) {
                 Toast.makeText(this, "Player 0 wins First Diagonal", Toast.LENGTH_SHORT).show();
             }
+
 
         }
 
@@ -124,6 +129,7 @@ public class SinglePlayer extends AppCompatActivity {
                     (boardStatus[0][0] == 0) {
                 Toast.makeText(this, "Player 0 wins Second Diagonal", Toast.LENGTH_SHORT).show();
             }
+
         } else {
             boolean empty = false;
             for (int i=1; i<3; i++){
@@ -159,6 +165,8 @@ public class SinglePlayer extends AppCompatActivity {
 
         return winnerFound;
     }
+
+
 
     private class AI {
         public void compTurn() {

@@ -54,6 +54,8 @@ public class FiveBoardMulti extends AppCompatActivity {
                 if (!button[i][j].isEnabled()) {
                     button[i][j].setText(" ");
                     button[i][j].setEnabled(true);
+                }else {
+                    button[i][j].setText(" ");
                 }
             }
         }
