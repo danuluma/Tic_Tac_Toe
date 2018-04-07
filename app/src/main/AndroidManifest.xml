@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".TwoPlayers">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switch" />
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -18,17 +22,43 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".SinglePlayer" />
+
+
+        <activity android:name=".SinglePlayer">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switch" />
+        </activity>
         <activity android:name=".Switch">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".FiveBoardMulti" />
-        <activity android:name=".Construction" />
-        <activity android:name=".FiveBoardSingle" />
+
+
+        <activity android:name=".FiveBoardMulti">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switch" />
+        </activity>
+
+
+        <activity android:name=".Construction">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switch" />
+        </activity>
+
+
+        <activity android:name=".FiveBoardSingle">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switch" />
+        </activity>
+
+
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
