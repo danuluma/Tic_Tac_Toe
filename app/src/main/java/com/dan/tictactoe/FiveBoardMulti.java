@@ -1,8 +1,8 @@
 package com.dan.tictactoe;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,10 +15,9 @@ import android.widget.Toast;
 
 public class FiveBoardMulti extends AppCompatActivity {
 
+    public boolean SWITCH = true;
     Button button[][] = new Button[5][5];
     int boardStatus[][] = new int[5][5];
-    public boolean SWITCH = true;
-
     LinearLayout llPlayer1, llPlayer2;
     TextView tvPlayer1, tvPlayer2;
     EditText etPlayer1, etPlayer2;
@@ -164,96 +163,24 @@ public class FiveBoardMulti extends AppCompatActivity {
 
 
 
-//        for (int i = 0; i < 5; i++) {
-//            for (int j = 0; j < 5; j++) {
-//                button[i][j].setOnClickListener(new FiveClickListener(i, j));
-//                if (!button[i][j].isEnabled()) {
-//                    button[i][j].setText(" ");
-//                    button[i][j].setEnabled(true);
-//                }else {
-//                    button[i][j].setText(" ");
-//                }
-//            }
-//        }
-//
-//        initializeBoardStatus();
-//        Toast.makeText(this, "Board initialized", Toast.LENGTH_SHORT).show();
-//
-//
-
-
-
-
     }
 
-//    private void initializeBoardStatus() {
-//        for (int i = 0; i < 5; i++) {
-//        int j;
-//        for (j = 0; j < 5; j++) {
-//            boardStatus[i][j] = -1;
-////                comp = new AI();
-//        }
-////            comp = new AI();
-//
-//
-//    }
-//    }
-//
-//    private class FiveClickListener implements View.OnClickListener {
-//
-//        int x;
-//        int y;
-//
-//        public FiveClickListener(int x, int y) {
-//            this.x = x;
-//            this.y = y;
-//        }
-//
-//        @Override
-//        public void onClick(View v) {
-//
-//
-//            if (SWITCH == true) {
-//
-//
-//                if (button[x][y].isEnabled()) {
-//                    button[x][y].setText("0");
-//                    button[x][y].setEnabled(false);
-//                    boardStatus[x][y] = 0;
-//                    SWITCH = false;
-//                }
-//
-//            }
-//
-//            else if (SWITCH == false){
-//
-//                if (button[x][y].isEnabled()) {
-//                    button[x][y].setText("X");
-//                    button[x][y].setEnabled(false);
-//                    boardStatus[x][y] = 1;
-//                    SWITCH = true;
-//
-//                }
-//            }
-//
-//            checkWinner();
-//
-//        }
-//    }
 
     private void checkWinner() {
+        boolean winnerFound = false;
+
         for (int i = 0; i < 5; i++) {
             if (boardStatus[0][i] == boardStatus[1][i]
                     && boardStatus[0][i] == boardStatus[2][i]
                     && boardStatus[0][i] == boardStatus[3][i]
                     && boardStatus[0][i] == boardStatus[4][i]) {
                 if (boardStatus[0][i] == 1) {
-                    Toast.makeText(this, "Player X wins " + (i + 1) + " column", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Player " + player1 + " wins " + (i + 1) + " column", Toast.LENGTH_SHORT).show();
                     player1Score++;
                     endPlay();
                     break;
                 } else if (boardStatus[0][i] == 0) {
-                    Toast.makeText(this, "Player 0 wins "+(i+1) +" column", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Player " + player2 + " wins " + (i + 1) + " column", Toast.LENGTH_SHORT).show();
                     player2Score++;
                     endPlay();
                     break;
@@ -270,12 +197,12 @@ public class FiveBoardMulti extends AppCompatActivity {
                     && boardStatus[i][0] == boardStatus[i][3]
                     && boardStatus[i][0] == boardStatus[i][4]) {
                 if (boardStatus[i][0] == 1) {
-                    Toast.makeText(this, "Player X wins " + (i + 1) + " row", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Player " + player1 + " wins " + (i + 1) + " row", Toast.LENGTH_SHORT).show();
                     player1Score++;
                     endPlay();
                     break;
                 } else if (boardStatus[i][0] == 0) {
-                    Toast.makeText(this, "Player 0 wins \"+(i+1) +\" row", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Player " + player2 + " wins "+(i+1) +" row", Toast.LENGTH_SHORT).show();
                     player2Score++;
                     endPlay();
                     break;
@@ -290,12 +217,14 @@ public class FiveBoardMulti extends AppCompatActivity {
                 && boardStatus[0][0] == boardStatus[3][3]
                 && boardStatus[0][0] == boardStatus[4][4]) {
             if (boardStatus[0][0] == 1) {
-                Toast.makeText(this, "Player X wins First Diagonal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Player " + player1 + " wins First Diagonal", Toast.LENGTH_SHORT).show();
                 player1Score++;
                 endPlay();
             } else if
                     (boardStatus[0][0] == 0) {
-                Toast.makeText(this, "Player 0 wins First Diagonal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Player " + player2 + " wins First Diagonal", Toast.LENGTH_SHORT).show();
+                player2Score++;
+                endPlay();
             }
         }
 
@@ -304,11 +233,33 @@ public class FiveBoardMulti extends AppCompatActivity {
                 && boardStatus[0][4] == boardStatus[3][1]
                 && boardStatus[0][4] == boardStatus[4][0]) {
             if (boardStatus[0][4] == 1) {
-                Toast.makeText(this, "Player X wins Second Diagonal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Player " + player1 + " wins Second Diagonal", Toast.LENGTH_SHORT).show();
+            player1Score++;
+            endPlay();
             } else if
                     (boardStatus[0][4] == 0) {
-                Toast.makeText(this, "Player 0 wins Second Diagonal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Player " + player2 + " wins Second Diagonal", Toast.LENGTH_SHORT).show();
+            player2Score++;
+            endPlay();
             }
+        }
+        else {
+            boolean empty = false;
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 5; j++) {
+                    if (boardStatus[i][j] == -1) {
+                        empty = true;
+                        break;
+                    }
+                }
+            }
+            if (!empty) {
+                winnerFound = true;
+                Toast.makeText(this, "Hey no winner", Toast.LENGTH_SHORT).show();
+                drawScore++;
+                endPlay();
+            }
+
         }
 
     }
@@ -333,9 +284,11 @@ public class FiveBoardMulti extends AppCompatActivity {
                 comingSoon();
                 return true;
             case R.id.reset_scores:
-                comingSoon();
+                resetScores();
+                return true;
             case R.id.contact:
                 comingSoon();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -348,8 +301,8 @@ public class FiveBoardMulti extends AppCompatActivity {
 
     private void endPlay() {
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 if (button[i][j].isEnabled()) {
                     button[i][j].setEnabled(false);
                 }
@@ -398,8 +351,8 @@ public class FiveBoardMulti extends AppCompatActivity {
 
 
     private void initializeBoardStatus() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 boardStatus[i][j] = -1;
                 button[i][j].setOnClickListener(new FiveMClickListener(i, j));
                 if (!button[i][j].isEnabled()) {
@@ -452,6 +405,15 @@ public class FiveBoardMulti extends AppCompatActivity {
         }
 
 
+    }
+    private void resetScores() {
+
+        player1Score = 0;
+        player2Score = 0;
+        drawScore = 0;
+        initializeBoardStatus();
+        onStopClick();
+        btStart.setText("Start");
     }
 
 }

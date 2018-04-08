@@ -343,9 +343,11 @@ public class TwoPlayers extends AppCompatActivity {
                 comingSoon();
                 return true;
             case R.id.reset_scores:
-                comingSoon();
+                resetScores();
+                return true;
             case R.id.contact:
                 comingSoon();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -394,4 +396,14 @@ public class TwoPlayers extends AppCompatActivity {
 
 
     }
+    private void resetScores() {
+
+        player1Score = 0;
+        player2Score = 0;
+        drawScore = 0;
+        initializeBoardStatus();
+        onStopClick();
+        btStart.setText("Start");
+    }
+
 }
