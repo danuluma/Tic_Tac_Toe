@@ -172,7 +172,7 @@ public class TwoPlayers extends AppCompatActivity {
         });
 
 
-        Toast.makeText(this, "Board initialized", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Board initialized", Toast.LENGTH_SHORT).show();
 
 
     }

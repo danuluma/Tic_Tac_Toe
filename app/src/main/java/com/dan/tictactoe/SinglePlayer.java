@@ -49,7 +49,7 @@ public class SinglePlayer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_two_players);
 
-        Toast.makeText(this, "AAA", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "AAA", Toast.LENGTH_SHORT).show();
 
 
         button[0][0] = (Button) findViewById(R.id.button1);
