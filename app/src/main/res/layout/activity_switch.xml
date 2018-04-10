@@ -7,17 +7,60 @@
     android:layout_height="match_parent"
     tools:context=".Switch">
 
-    <Button
-        android:id="@+id/bts"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="Single" />
+        android:orientation="horizontal"
+        tools:padding="24dp">
 
-    <Button
-        android:id="@+id/btm"
+
+        <Button
+            android:id="@+id/bts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="24dp"
+            android:layout_weight="1"
+            android:text="Single player 3x3"
+            tools:padding="24dp" />
+
+        <Button
+            android:id="@+id/btm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="24dp"
+            android:layout_weight="1"
+            android:text="MultiPlayer 3x3"
+            tools:padding="24dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="Multi" />
+        android:orientation="horizontal"
+        tools:padding="24dp">
+
+        <Button
+            android:id="@+id/btsf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="24dp"
+            android:text="Single Player 5x5"
+            tools:layout_margin="24dp"
+            tools:padding="24dp" />
+
+        <Button
+            android:id="@+id/btmf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="24dp"
+            android:text="Multi Player 5x5"
+            tools:layout_margin="24dp"
+            tools:padding="24dp" />
+
+    </LinearLayout>
 </LinearLayout>

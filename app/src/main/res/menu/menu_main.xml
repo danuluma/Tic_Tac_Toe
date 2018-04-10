@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/help"
+    android:title="Help"
+    android:orderInCategory="9"
+    android:visible="false"/>
+
+    <item android:id="@+id/reset_scores"
+        android:title="Reset Scores"
+        android:orderInCategory="1"/>
+
+    <item
+        android:id="@+id/share"
+        android:title="Share App"
+        android:orderInCategory="4"/>
+
+    <item android:id="@+id/about"
+        android:title="About"
+        android:orderInCategory="10"/>
+</menu>

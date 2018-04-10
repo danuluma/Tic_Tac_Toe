@@ -1,122 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TableLayout
+
+    <ImageView
+        android:id="@+id/ivUser1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:rowCount="3"
-        android:columnCount="3">
+        android:scaleType="fitXY"
+        android:src="@drawable/single3"
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TableRow
-            android:id="@+id/ll1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/ivUser2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/single5"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_weight="1"
-                android:text="Button" />
+    <ImageView
+        android:id="@+id/ivUser3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/multi3"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/button3"
-                android:layout_toRightOf="@+id/button1"
-                android:layout_weight="1"
-                android:text="Button" />
+    <ImageView
+        android:id="@+id/ivUser4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/multi5"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_weight="1"
-                android:text="Button" />
-        </TableRow>
+    <Button
+        android:id="@+id/btSelect"
+        android:layout_width="103dp"
+        android:layout_height="57dp"
 
-
-        <TableRow
-            android:id="@+id/ll2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ll1">
-
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_weight="1"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/button3"
-                android:layout_toRightOf="@+id/button1"
-                android:layout_weight="1"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_weight="1"
-                android:text="Button" />
-        </TableRow>
-
-
-        <TableRow
-            android:id="@+id/ll3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ll2">
-
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_weight="1"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/button3"
-                android:layout_toRightOf="@+id/button1"
-                android:layout_weight="1"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button9"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_weight="1"
-                android:text="Button" />
-        </TableRow>
-    </TableLayout>
-
-    <TextView
-        android:id="@+id/tv1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
-        android:text="TextView" />
-
-
-</RelativeLayout>
+        android:layout_marginBottom="4dp"
+        android:text="Select"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

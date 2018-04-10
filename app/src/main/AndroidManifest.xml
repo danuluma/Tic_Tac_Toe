@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dan.tictactoe">
+    <uses-permission android:name="android.permission.INTERNET">
+
+    </uses-permission>
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".TwoPlayers">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switch" />
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -18,15 +24,43 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".SinglePlayer" />
+        <activity android:name=".SinglePlayer">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switch" />
+        </activity>
         <activity android:name=".Switch">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".FiveBoardMulti">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switch" />
+        </activity>
+        <activity android:name=".Construction">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switch" />
+        </activity>
+        <activity android:name=".FiveBoardSingle">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switch" />
+        </activity>
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FiveBoardMulti"></activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
