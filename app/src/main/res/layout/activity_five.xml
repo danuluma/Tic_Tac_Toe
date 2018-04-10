@@ -61,7 +61,8 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="32dp"
 
-                android:text="Please Enter Player 2 Name" />
+                android:text="Please Enter Player 2 Name"
+                android:visibility="visible" />
 
             <EditText
                 android:id="@+id/etPlayer2"
@@ -69,7 +70,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvPlayer1"
                 android:layout_margin="16dp"
+                android:visibility="visible"
                 tools:text="JOHN" />
+
         </LinearLayout>
 
     </LinearLayout>

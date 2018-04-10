@@ -1,7 +1,11 @@
 package com.dan.tictactoe;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -91,6 +95,12 @@ public class FiveBoardSingle extends AppCompatActivity {
 
         btStart = findViewById(R.id.btStart);
 
+        etPlayer2.setVisibility(View.INVISIBLE);
+        etPlayer2.setText("Comp AI");
+        tvPlayer2.setText("Comp AI");
+        tvPlayer2.setTextSize(24);
+        tvPlayer2.setTypeface(Typeface.DEFAULT_BOLD);
+
 
         btStart.setText("Start");
         btStart.setOnClickListener(new View.OnClickListener() {
@@ -101,10 +111,15 @@ public class FiveBoardSingle extends AppCompatActivity {
                 if (CHANGE == false) {
 
 
-                    initializeBoardStatus();
+                    if (!etPlayer1.getText().toString().trim().equals("")) {
+
+                        initializeBoardStatus();
 //                    CHANGE = true;
-                    onStopClick();
-                    btStart.setText("Stop");
+                        onStopClick();
+                        btStart.setText("Restart");
+                    } else if (etPlayer1.getText().toString().trim().equals("")) {
+                        Toast.makeText(FiveBoardSingle.this, "Please Enter Name First!", Toast.LENGTH_SHORT).show();
+                    }
 
 
                 } else if (CHANGE == true) {
@@ -154,22 +169,6 @@ public class FiveBoardSingle extends AppCompatActivity {
         });
 
 
-        Toast.makeText(this, "Board initialized", Toast.LENGTH_SHORT).show();
-
-
-//        for (int i = 0; i < 5; i++) {
-//            for (int j = 0; j < 5; j++) {
-//                button[i][j].setOnClickListener(new FiveClickListener(i, j));
-//                if (!button[i][j].isEnabled()) {
-//                    button[i][j].setText(" ");
-//                    button[i][j].setEnabled(true);
-//                }else {
-//                    button[i][j].setText(" ");
-//                }
-//            }
-//        }
-//
-//        initializeBoardStatus();
 //        Toast.makeText(this, "Board initialized", Toast.LENGTH_SHORT).show();
 
 
@@ -269,14 +268,21 @@ public class FiveBoardSingle extends AppCompatActivity {
             }
         } else {
             boolean empty = false;
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
-                    if (boardStatus[i][j] == -1) {
-                        empty = true;
-                        break;
+            try {
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        if (boardStatus[i][j] == -1) {
+                            empty = true;
+                            break;
+                        }
                     }
                 }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
+
             if (!empty) {
                 winnerFound = true;
                 Toast.makeText(this, "Hey no winner", Toast.LENGTH_SHORT).show();
@@ -306,17 +312,27 @@ public class FiveBoardSingle extends AppCompatActivity {
                 comingSoon();
                 return true;
             case R.id.share:
-                comingSoon();
+                shareIntent();
+
                 return true;
             case R.id.reset_scores:
                 resetScores();
                 return true;
-            case R.id.contact:
-                comingSoon();
+            case R.id.about:
+                about();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void shareIntent() {
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.putExtra(Intent.EXTRA_SUBJECT, "Dan");
+        share.putExtra(Intent.EXTRA_TEXT, "I've played this game and it's AWESOME!!\nFind it at https://github.com/danuluma");
+        startActivity(Intent.createChooser(share, "Share link using"));
+
     }
 
     private void comingSoon() {
@@ -375,6 +391,54 @@ public class FiveBoardSingle extends AppCompatActivity {
         tvDrawScore.setVisibility(View.VISIBLE);
     }
 
+    private void resetScores() {
+        Intent intent = new Intent(FiveBoardSingle.this, com.dan.tictactoe.FiveBoardSingle.class);
+        startActivity(intent);
+
+//        player1Score = 0;
+//        player2Score = 0;
+//        drawScore = 0;
+//        initializeBoardStatus();
+//        onStopClick();
+//        btStart.setText("Start");
+    }
+
+    private void about() {
+        AlertDialog about = new AlertDialog.Builder(FiveBoardSingle.this).create();
+        about.setTitle("About");
+        about.setMessage("Tic Tac Toe by Dan\n" +
+                "github.com/danuluma/Tic_Tac_Toe\nExplore my other projects on Git\n" +
+                "Copyright:2018\nAll Rights Reserved");
+        about.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        about.setButton(AlertDialog.BUTTON_POSITIVE, "GITHUB",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        try {
+
+
+                            Uri uri = Uri.parse("http://github.com/danuluma");
+                            Intent intent = new Intent();
+                            intent.setData(uri);
+                            intent.setAction(Intent.ACTION_VIEW);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            Toast.makeText(FiveBoardSingle.this, "No Browser Installed", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
+        about.show();
+    }
+
     private class FiveSClickListener implements View.OnClickListener {
         int x;
         int y;
@@ -428,14 +492,5 @@ public class FiveBoardSingle extends AppCompatActivity {
             boardStatus[x][y] = 0;
 
         }
-    }
-    private void resetScores() {
-
-        player1Score = 0;
-        player2Score = 0;
-        drawScore = 0;
-        initializeBoardStatus();
-        onStopClick();
-        btStart.setText("Start");
     }
 }

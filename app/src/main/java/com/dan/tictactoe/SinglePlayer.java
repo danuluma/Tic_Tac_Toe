@@ -1,7 +1,10 @@
 package com.dan.tictactoe;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,6 +37,7 @@ public class SinglePlayer extends AppCompatActivity {
     Boolean INVERT = false;
     LinearLayout llSwap;
     TextView tvTurn;
+    boolean winnerFound = false;
 
 
     AI comp;
@@ -79,6 +83,7 @@ public class SinglePlayer extends AppCompatActivity {
 
 
         btStart = findViewById(R.id.btStart);
+        setSwipeListener();
 
 
         btStart.setText("Start");
@@ -90,10 +95,16 @@ public class SinglePlayer extends AppCompatActivity {
                 if (CHANGE == false) {
 
 
-                    initializeBoardStatus();
+                    if (!etPlayer1.getText().toString().trim().equals("")) {
+
+                        initializeBoardStatus();
 //                    CHANGE = true;
-                    onStopClick();
-                    btStart.setText("Stop");
+                        onStopClick();
+                        btStart.setText("Restart");
+                    } else if (etPlayer1.getText().toString().trim().equals("")) {
+
+                        Toast.makeText(SinglePlayer.this, "Please Enter Name First!", Toast.LENGTH_SHORT).show();
+                    }
 
 
                 } else if (CHANGE == true) {
@@ -143,10 +154,11 @@ public class SinglePlayer extends AppCompatActivity {
         });
 
 
-        Toast.makeText(this, "Board initialized", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Board initialized", Toast.LENGTH_SHORT).show();
 
 
     }
+
 
     private void initializeBoardStatus() {
         for (int i = 0; i < 3; i++) {
@@ -165,21 +177,24 @@ public class SinglePlayer extends AppCompatActivity {
     }
 
     private boolean checkWinner() {
-        boolean winnerFound = false;
+        boolean draw = false;
         for (int i = 0; i < 3; i++) {
             if (boardStatus[0][i] == boardStatus[1][i]
                     && boardStatus[0][i] == boardStatus[2][i]) {
                 if (boardStatus[0][i] == 1) {
                     Toast.makeText(this, "Player " + player1 + " wins " + (i + 1) + " column", Toast.LENGTH_SHORT).show();
                     player1Score++;
+                    winnerFound = true;
                     endPlay();
                     break;
                 } else if (boardStatus[0][i] == 0) {
                     Toast.makeText(this, "Player " + player2 + " wins " + (i + 1) + " column", Toast.LENGTH_SHORT).show();
                     player2Score++;
+                    winnerFound = true;
                     endPlay();
                     break;
                 }
+
 
             }
 
@@ -193,11 +208,13 @@ public class SinglePlayer extends AppCompatActivity {
                     Toast.makeText(this, "Player " + player1 + " wins " + (i + 1) + " row", Toast.LENGTH_SHORT).show();
 
                     player1Score++;
+                    winnerFound = true;
                     endPlay();
 
                 } else if (boardStatus[i][0] == 0) {
                     Toast.makeText(this, "Player " + player2 + " wins " + (i + 1) + " row", Toast.LENGTH_SHORT).show();
                     player2Score++;
+                    winnerFound = true;
                     endPlay();
 
                 }
@@ -212,11 +229,13 @@ public class SinglePlayer extends AppCompatActivity {
                 Toast.makeText(this, "Player " + player1 + " wins " + "First Diagonal", Toast.LENGTH_SHORT).show();
 
                 player1Score++;
+                winnerFound = true;
                 endPlay();
             } else if
                     (boardStatus[0][0] == 0) {
                 Toast.makeText(this, "Player " + player2 + " wins " + "First Diagonal", Toast.LENGTH_SHORT).show();
                 player2Score++;
+                winnerFound = true;
                 endPlay();
             }
         } else if (boardStatus[0][2] == boardStatus[1][1]
@@ -225,33 +244,42 @@ public class SinglePlayer extends AppCompatActivity {
                 Toast.makeText(this, "Player " + player1 + " wins " + "Second Diagonal", Toast.LENGTH_SHORT).show();
 
                 player1Score++;
+                winnerFound = true;
                 endPlay();
             } else if (boardStatus[0][2] == 0) {
                 Toast.makeText(this, "Player " + player2 + " wins " + "Second Diagonal", Toast.LENGTH_SHORT).show();
 
                 player2Score++;
+                winnerFound = true;
                 endPlay();
             }
         } else {
             boolean empty = false;
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    if (boardStatus[i][j] == -1) {
-                        empty = true;
-                        break;
+            try {
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        if (boardStatus[i][j] == -1) {
+                            empty = true;
+                            break;
+                        }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
+
             if (!empty) {
-                winnerFound = true;
+                draw = true;
                 Toast.makeText(this, "Hey no winner", Toast.LENGTH_SHORT).show();
                 drawScore++;
+                winnerFound = true;
                 endPlay();
             }
 
         }
 
-        return winnerFound;
+        return draw;
 
     }
 
@@ -269,21 +297,32 @@ public class SinglePlayer extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.help:
-                comingSoon();
+                Intent intent = new Intent(SinglePlayer.this, com.dan.tictactoe.MainActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.share:
-                comingSoon();
+                shareIntent();
+
                 return true;
             case R.id.reset_scores:
                 resetScores();
                 return true;
 
-            case R.id.contact:
-                comingSoon();
+            case R.id.about:
+                about();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void shareIntent() {
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.putExtra(Intent.EXTRA_SUBJECT, "Dan");
+        share.putExtra(Intent.EXTRA_TEXT, "I've played this game and it's AWESOME!!\nFind it at https://github.com/danuluma");
+        startActivity(Intent.createChooser(share, "Share link using"));
+
     }
 
     private void resetScores() {
@@ -310,7 +349,9 @@ public class SinglePlayer extends AppCompatActivity {
                 }
             }
         }
+
         onStopClick();
+        return;
 
     }
 
@@ -350,6 +391,78 @@ public class SinglePlayer extends AppCompatActivity {
         tvPlayer2Name.setVisibility(View.VISIBLE);
         tvDraw.setVisibility(View.VISIBLE);
         tvDrawScore.setVisibility(View.VISIBLE);
+    }
+
+    private void setSwipeListener() {
+        try {
+            SwipeListener swipeListener = new SwipeListener(SinglePlayer.this) {
+                @Override
+                public void onSwipeRight() {
+
+                    Intent intent = new Intent(SinglePlayer.this, com.dan.tictactoe.FiveBoardSingle.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onSwipeTop() {
+                    Intent intent = new Intent(SinglePlayer.this, com.dan.tictactoe.TwoPlayers.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onSwipeLeft() {
+                    Intent intent = new Intent(SinglePlayer.this, com.dan.tictactoe.FiveBoardSingle.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onSwipeBottom() {
+                    Intent intent = new Intent(SinglePlayer.this, com.dan.tictactoe.TwoPlayers.class);
+                    startActivity(intent);
+                    finish();
+                }
+            };
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void about() {
+        AlertDialog about = new AlertDialog.Builder(SinglePlayer.this).create();
+        about.setTitle("About");
+        about.setMessage("Tic Tac Toe by Dan\n" +
+                "github.com/danuluma/Tic_Tac_Toe\nExplore my other projects on Git\n" +
+                "Copyright:2018\nAll Rights Reserved");
+        about.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        about.setButton(AlertDialog.BUTTON_POSITIVE, "GITHUB",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+
+
+                            Uri uri = Uri.parse("http://github.com/danuluma/Tic_Tac_Toe");
+                            Intent intent = new Intent();
+                            intent.setData(uri);
+                            intent.setAction(Intent.ACTION_VIEW);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            Toast.makeText(SinglePlayer.this, "No Browser Installed", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+        about.show();
     }
 
     private class AI {
@@ -440,13 +553,25 @@ public class SinglePlayer extends AppCompatActivity {
                 button[x][y].setText(player1Icon);
                 button[x][y].setEnabled(false);
                 boardStatus[x][y] = 1;
-                tvTurn.setText(player2 + " turn to play.");
+                tvTurn.setText(player2 + " thinking...");
+
 
                 checkWinner();
-                if (!checkWinner()) {
-                    comp.compTurn();
-                    tvTurn.setText(player1 + " turn to play.");
 
+
+                if (!checkWinner()) {
+                    try {
+
+
+                        comp.compTurn();
+                        Thread.sleep(100);
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Toast.makeText(SinglePlayer.this, player2 + " Interrupted", Toast.LENGTH_SHORT).show();
+                    }
+
+                    tvTurn.setText(player1 + " turn to play.");
 
                     checkWinner();
                 }
@@ -458,3 +583,10 @@ public class SinglePlayer extends AppCompatActivity {
     }
 
 }
+
+
+
+
+
+
+

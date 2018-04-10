@@ -1,7 +1,10 @@
 package com.dan.tictactoe;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,7 +32,7 @@ public class FiveBoardMulti extends AppCompatActivity {
     Button tvInvert;
     String player1Icon = "X";
     String player2Icon = "0";
-    Boolean INVERT = true;
+    Boolean INVERT = false;
     LinearLayout llSwap;
     TextView tvTurn;
 
@@ -104,10 +107,15 @@ public class FiveBoardMulti extends AppCompatActivity {
                 if (CHANGE == false) {
 
 
-                    initializeBoardStatus();
+                    if (!etPlayer1.getText().toString().trim().equals("") && !etPlayer2.getText().toString().trim().equals("")) {
+
+                        initializeBoardStatus();
 //                    CHANGE = true;
-                    onStopClick();
-                    btStart.setText("Stop");
+                        onStopClick();
+                        btStart.setText("Restart");
+                    } else if (etPlayer1.getText().toString().trim().equals("") || etPlayer2.getText().toString().trim().equals("")) {
+                        Toast.makeText(FiveBoardMulti.this, "Please Enter Name First!", Toast.LENGTH_SHORT).show();
+                    }
 
 
                 } else if (CHANGE == true) {
@@ -157,112 +165,155 @@ public class FiveBoardMulti extends AppCompatActivity {
         });
 
 
-        Toast.makeText(this, "Board initialized", Toast.LENGTH_SHORT).show();
-
-
-
+//        Toast.makeText(this, "Board initialized", Toast.LENGTH_SHORT).show();
 
 
     }
 
+    /*
+    Tried 3 to win algorithm
+    will work on it later on
+     */
 
-    private void checkWinner() {
-        boolean winnerFound = false;
-
-        for (int i = 0; i < 5; i++) {
-            if (boardStatus[0][i] == boardStatus[1][i]
-                    && boardStatus[0][i] == boardStatus[2][i]
-                    && boardStatus[0][i] == boardStatus[3][i]
-                    && boardStatus[0][i] == boardStatus[4][i]) {
-                if (boardStatus[0][i] == 1) {
-                    Toast.makeText(this, "Player " + player1 + " wins " + (i + 1) + " column", Toast.LENGTH_SHORT).show();
-                    player1Score++;
-                    endPlay();
-                    break;
-                } else if (boardStatus[0][i] == 0) {
-                    Toast.makeText(this, "Player " + player2 + " wins " + (i + 1) + " column", Toast.LENGTH_SHORT).show();
-                    player2Score++;
-                    endPlay();
-                    break;
-                }
-
-            }
-
-
-        }
-
-        for (int i = 0; i < 5; i++) {
-            if (boardStatus[i][0] == boardStatus[i][1]
-                    && boardStatus[i][0] == boardStatus[i][2]
-                    && boardStatus[i][0] == boardStatus[i][3]
-                    && boardStatus[i][0] == boardStatus[i][4]) {
-                if (boardStatus[i][0] == 1) {
-                    Toast.makeText(this, "Player " + player1 + " wins " + (i + 1) + " row", Toast.LENGTH_SHORT).show();
-                    player1Score++;
-                    endPlay();
-                    break;
-                } else if (boardStatus[i][0] == 0) {
-                    Toast.makeText(this, "Player " + player2 + " wins "+(i+1) +" row", Toast.LENGTH_SHORT).show();
-                    player2Score++;
-                    endPlay();
-                    break;
-                }
-
-            }
-
-
-        }
-        if (boardStatus[1][1] == boardStatus[0][0]
-                && boardStatus[0][0] == boardStatus[2][2]
-                && boardStatus[0][0] == boardStatus[3][3]
-                && boardStatus[0][0] == boardStatus[4][4]) {
-            if (boardStatus[0][0] == 1) {
-                Toast.makeText(this, "Player " + player1 + " wins First Diagonal", Toast.LENGTH_SHORT).show();
-                player1Score++;
-                endPlay();
-            } else if
-                    (boardStatus[0][0] == 0) {
-                Toast.makeText(this, "Player " + player2 + " wins First Diagonal", Toast.LENGTH_SHORT).show();
-                player2Score++;
-                endPlay();
-            }
-        }
-
-        if (boardStatus[0][4] == boardStatus[1][3]
-                && boardStatus[0][4] == boardStatus[2][2]
-                && boardStatus[0][4] == boardStatus[3][1]
-                && boardStatus[0][4] == boardStatus[4][0]) {
-            if (boardStatus[0][4] == 1) {
-                Toast.makeText(this, "Player " + player1 + " wins Second Diagonal", Toast.LENGTH_SHORT).show();
-            player1Score++;
-            endPlay();
-            } else if
-                    (boardStatus[0][4] == 0) {
-                Toast.makeText(this, "Player " + player2 + " wins Second Diagonal", Toast.LENGTH_SHORT).show();
-            player2Score++;
-            endPlay();
-            }
-        }
-        else {
-            boolean empty = false;
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
-                    if (boardStatus[i][j] == -1) {
-                        empty = true;
-                        break;
-                    }
-                }
-            }
-            if (!empty) {
-                winnerFound = true;
-                Toast.makeText(this, "Hey no winner", Toast.LENGTH_SHORT).show();
-                drawScore++;
-                endPlay();
-            }
-
-        }
-
-    }
+//    private void checkWinner() {
+//        boolean winnerFound = false;
+//
+//        for (int j = 0; j < 3; j++) {
+//            for (int i = 0; i < 3; i++) {
+//                if (boardStatus[j+i][i ] == boardStatus[j + 1][i ]
+//                        && boardStatus[j+i][i ] == boardStatus[j + 2][i ]
+//                        && (boardStatus[2][i+j]!=-1 || boardStatus[i+j][2]!=-1)
+////                && boardStatus[0][i] == boardStatus[3][i]
+////                && boardStatus[0][i] == boardStatus[4][i]
+//                        ) {
+//                    if (boardStatus[j+i][i ] == 1) {
+//                        Toast.makeText(this, "Player " + player1 + " wins " + (  j + 1) + " column", Toast.LENGTH_SHORT).show();
+//                        player1Score++;
+//                        endPlay();
+//                        break;
+//                    } else if (boardStatus[j+i][i ] == 0) {
+//                        Toast.makeText(this, "Player " + player2 + " wins " + (  j + 1) + " column", Toast.LENGTH_SHORT).show();
+//                        player2Score++;
+//                        endPlay();
+//                        break;
+//                    }
+//
+//                }
+//
+//
+//            }
+//
+//            for (int i = 0; i < 3; i++) {
+//                if (boardStatus[i + j][j] == boardStatus[i + j][j + 1]
+//                        && boardStatus[i + j][j] == boardStatus[i + j][j + 2]
+////                && boardStatus[i][0] == boardStatus[i][3]
+////                && boardStatus[i][0] == boardStatus[i][4]
+//                        ) {
+//                    if (boardStatus[i + j][j] == 1) {
+//                        Toast.makeText(this, "Player " + player1 + " wins " + (i + 1) + " row", Toast.LENGTH_SHORT).show();
+//                        player1Score++;
+//                        endPlay();
+//                        break;
+//                    } else if (boardStatus[i + j][j] == 0) {
+//                        Toast.makeText(this, "Player " + player2 + " wins " + (i + 1) + " row", Toast.LENGTH_SHORT).show();
+//                        player2Score++;
+//                        endPlay();
+//                        break;
+//                    }
+//
+//                }
+//
+//
+//            }
+//
+//
+////        break here
+//
+//        if (boardStatus[j][j] == boardStatus[j+1][j+1]
+//                && boardStatus[j][j] == boardStatus[j+2][j+2]
+////                && boardStatus[0][0] == boardStatus[3][3]
+////                && boardStatus[0][0] == boardStatus[4][4]
+//                ) {
+//            if (boardStatus[j][j] == 1) {
+//                Toast.makeText(this, "Player " + player1 + " wins First Diagonal", Toast.LENGTH_SHORT).show();
+//                player1Score++;
+//                endPlay();
+//            } else if
+//                    (boardStatus[j][j] == 0) {
+//                Toast.makeText(this, "Player " + player2 + " wins First Diagonal", Toast.LENGTH_SHORT).show();
+//                player2Score++;
+//                endPlay();
+//            }
+//        }
+//    }
+//
+//        if (boardStatus[2][2] == boardStatus[1][3]
+//                && boardStatus[2][2] == boardStatus[0][4]
+////                && boardStatus[0][4] == boardStatus[3][1]
+////                && boardStatus[0][4] == boardStatus[4][0]
+//                ) {
+//            if (boardStatus[2][2] == 1) {
+//                Toast.makeText(this, "Player " + player1 + " wins Second Diagonal", Toast.LENGTH_SHORT).show();
+//                player1Score++;
+//                endPlay();
+//            } else if
+//                    (boardStatus[2][2] == 0) {
+//                Toast.makeText(this, "Player " + player2 + " wins Second Diagonal", Toast.LENGTH_SHORT).show();
+//                player2Score++;
+//                endPlay();
+//            }
+//        }
+//        if (boardStatus[2][2] == boardStatus[1][3]
+//                && boardStatus[2][2] == boardStatus[3][1]
+////                && boardStatus[0][4] == boardStatus[3][1]
+////                && boardStatus[0][4] == boardStatus[4][0]
+//                ) {
+//            if (boardStatus[2][2] == 1) {
+//                Toast.makeText(this, "Player " + player1 + " wins Second Diagonal", Toast.LENGTH_SHORT).show();
+//                player1Score++;
+//                endPlay();
+//            } else if
+//                    (boardStatus[2][2] == 0) {
+//                Toast.makeText(this, "Player " + player2 + " wins Second Diagonal", Toast.LENGTH_SHORT).show();
+//                player2Score++;
+//                endPlay();
+//            }
+//        }
+//        if (boardStatus[2][2] == boardStatus[3][1]
+//                && boardStatus[2][2] == boardStatus[4][0]
+////                && boardStatus[0][4] == boardStatus[3][1]
+////                && boardStatus[0][4] == boardStatus[4][0]
+//                ) {
+//            if (boardStatus[2][2] == 1) {
+//                Toast.makeText(this, "Player " + player1 + " wins Second Diagonal", Toast.LENGTH_SHORT).show();
+//                player1Score++;
+//                endPlay();
+//            } else if
+//                    (boardStatus[2][2] == 0) {
+//                Toast.makeText(this, "Player " + player2 + " wins Second Diagonal", Toast.LENGTH_SHORT).show();
+//                player2Score++;
+//                endPlay();
+//            }
+//        }else {
+//            boolean empty = false;
+//            for (int i = 0; i < 5; i++) {
+//                for (int j = 0; j < 5; j++) {
+//                    if (boardStatus[i][j] == -1) {
+//                        empty = true;
+//                        break;
+//                    }
+//                }
+//            }
+//            if (!empty) {
+//                winnerFound = true;
+//                Toast.makeText(this, "Hey no winner", Toast.LENGTH_SHORT).show();
+//                drawScore++;
+//                endPlay();
+//            }
+//
+//        }
+//
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -281,17 +332,66 @@ public class FiveBoardMulti extends AppCompatActivity {
                 comingSoon();
                 return true;
             case R.id.share:
-                comingSoon();
+
+
+                shareIntent();
+
+
                 return true;
             case R.id.reset_scores:
                 resetScores();
                 return true;
-            case R.id.contact:
-                comingSoon();
+            case R.id.about:
+                about();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void about() {
+        AlertDialog about = new AlertDialog.Builder(FiveBoardMulti.this).create();
+        about.setTitle("About");
+        about.setMessage("Tic Tac Toe by Dan\n" +
+                "github.com/danuluma/Tic_Tac_Toe\nExplore my other projects on Git\n" +
+                "Copyright:2018\nAll Rights Reserved");
+        about.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        about.setButton(AlertDialog.BUTTON_POSITIVE, "GITHUB",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        try {
+
+
+                            Uri uri = Uri.parse("http://github.com/danuluma");
+                            Intent intent = new Intent();
+                            intent.setData(uri);
+                            intent.setAction(Intent.ACTION_VIEW);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            Toast.makeText(FiveBoardMulti.this, "No Browser Installed", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
+        about.show();
+    }
+
+    private void shareIntent() {
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.putExtra(Intent.EXTRA_SUBJECT, "Dan");
+        share.putExtra(Intent.EXTRA_TEXT, "I've played this game and it's AWESOME!!\nFind it at https://github.com/danuluma");
+        startActivity(Intent.createChooser(share, "Share link using"));
+
     }
 
     private void comingSoon() {
@@ -308,6 +408,7 @@ public class FiveBoardMulti extends AppCompatActivity {
                 }
             }
         }
+        btStart.setText("Replay");
         onStopClick();
 
     }
@@ -365,6 +466,121 @@ public class FiveBoardMulti extends AppCompatActivity {
         }
     }
 
+    private void resetScores() {
+
+        player1Score = 0;
+        player2Score = 0;
+        drawScore = 0;
+        initializeBoardStatus();
+        onStopClick();
+        btStart.setText("Start");
+    }
+
+    private boolean checkWinner() {
+        boolean winnerFound = false;
+
+        for (int i = 0; i < 5; i++) {
+            if (boardStatus[0][i] == boardStatus[1][i]
+                    && boardStatus[0][i] == boardStatus[2][i]
+                    && boardStatus[0][i] == boardStatus[3][i]
+                    && boardStatus[0][i] == boardStatus[4][i]) {
+                if (boardStatus[0][i] == 1) {
+                    Toast.makeText(this, "Player " + player1 + " wins " + (i + 1) + " column", Toast.LENGTH_SHORT).show();
+                    player1Score++;
+                    endPlay();
+                    break;
+                } else if (boardStatus[0][i] == 0) {
+                    Toast.makeText(this, "Player " + player2 + " wins " + (i + 1) + " column", Toast.LENGTH_SHORT).show();
+                    player2Score++;
+                    endPlay();
+                    break;
+                }
+
+            }
+
+
+        }
+
+        for (int i = 0; i < 5; i++) {
+            if (boardStatus[i][0] == boardStatus[i][1]
+                    && boardStatus[i][0] == boardStatus[i][2]
+                    && boardStatus[i][0] == boardStatus[i][3]
+                    && boardStatus[i][0] == boardStatus[i][4]) {
+                if (boardStatus[i][0] == 1) {
+                    Toast.makeText(this, "Player " + player1 + " wins " + (i + 1) + " row", Toast.LENGTH_SHORT).show();
+                    player1Score++;
+                    endPlay();
+                    break;
+                } else if (boardStatus[i][0] == 0) {
+                    Toast.makeText(this, "Player " + player2 + " wins " + (i + 1) + " row", Toast.LENGTH_SHORT).show();
+                    player2Score++;
+                    endPlay();
+                    break;
+                }
+
+            }
+
+
+        }
+        if (boardStatus[1][1] == boardStatus[0][0]
+                && boardStatus[0][0] == boardStatus[2][2]
+                && boardStatus[0][0] == boardStatus[3][3]
+                && boardStatus[0][0] == boardStatus[4][4]) {
+            if (boardStatus[0][0] == 1) {
+                Toast.makeText(this, "Player " + player1 + " wins First Diagonal", Toast.LENGTH_SHORT).show();
+                player1Score++;
+                endPlay();
+            } else if
+                    (boardStatus[0][0] == 0) {
+                Toast.makeText(this, "Player " + player2 + " wins First Diagonal", Toast.LENGTH_SHORT).show();
+                player2Score++;
+                endPlay();
+            }
+        }
+
+        if (boardStatus[0][4] == boardStatus[1][3]
+                && boardStatus[0][4] == boardStatus[2][2]
+                && boardStatus[0][4] == boardStatus[3][1]
+                && boardStatus[0][4] == boardStatus[4][0]) {
+            if (boardStatus[0][4] == 1) {
+                Toast.makeText(this, "Player " + player1 + " wins Second Diagonal", Toast.LENGTH_SHORT).show();
+                player1Score++;
+                endPlay();
+            } else if
+                    (boardStatus[0][4] == 0) {
+                Toast.makeText(this, "Player " + player2 + " wins Second Diagonal", Toast.LENGTH_SHORT).show();
+                player2Score++;
+                endPlay();
+            }
+        } else {
+            boolean empty = false;
+            try {
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        if (boardStatus[i][j] == -1) {
+                            empty = true;
+                            break;
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            if (!empty) {
+                winnerFound = true;
+                Toast.makeText(this, "Hey no winner", Toast.LENGTH_SHORT).show();
+                drawScore++;
+                endPlay();
+            }
+
+        }
+
+        return winnerFound;
+    }
+
     private class FiveMClickListener implements View.OnClickListener {
         int x;
         int y;
@@ -406,14 +622,6 @@ public class FiveBoardMulti extends AppCompatActivity {
 
 
     }
-    private void resetScores() {
 
-        player1Score = 0;
-        player2Score = 0;
-        drawScore = 0;
-        initializeBoardStatus();
-        onStopClick();
-        btStart.setText("Start");
-    }
 
 }
