@@ -36,9 +36,9 @@
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
                                       <entry key="backgroundLayerName" value="single3_launcher_background" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Pictures/droid/single3.jpg" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Pictures/droid/launcher_icon.jpg" />
                                       <entry key="foregroundLayerName" value="ic_launcher_foreground" />
-                                      <entry key="outputName" value="single3" />
+                                      <entry key="outputName" value="ic_launcher_icon" />
                                     </map>
                                   </option>
                                 </PersistentState>

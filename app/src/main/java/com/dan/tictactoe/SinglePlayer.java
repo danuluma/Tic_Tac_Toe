@@ -2,6 +2,7 @@ package com.dan.tictactoe;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -80,6 +81,12 @@ public class SinglePlayer extends AppCompatActivity {
         tvP2id = findViewById(R.id.tvP2id);
         llSwap = findViewById(R.id.llSwap);
         tvTurn = findViewById(R.id.tvTurn);
+
+        etPlayer2.setVisibility(View.INVISIBLE);
+        etPlayer2.setText("Comp AI");
+        tvPlayer2.setText("Comp AI");
+        tvPlayer2.setTextSize(24);
+        tvPlayer2.setTypeface(Typeface.DEFAULT_BOLD);
 
 
         btStart = findViewById(R.id.btStart);
